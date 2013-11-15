@@ -1,0 +1,5 @@
+AB-BA-
+BAC-AB
+B-CCAB
+------
+AAAAAA
