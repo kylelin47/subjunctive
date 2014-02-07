@@ -1,11 +1,16 @@
-import pyglet
+import os.path
+
+import sdl2
+import sdl2.ext
 
 import subjunctive
 
-class Planet(subjunctive.World):
-    background = pyglet.resource.image('images/whiteplane.png')
+subjunctive.resource.add_path(os.path.dirname(__file__))
+
+class Planet(subjunctive.world.World):
+    background = subjunctive.resource.image('images/whiteplane.png')
+    grid = subjunctive.grid.Grid(12, 12)
     grid_offset = (0, 0)
-    grid_size = (12, 12)
     tile_size = (16, 16)
     window_caption = "Think Better"
 
@@ -19,37 +24,36 @@ class Planet(subjunctive.World):
         self.spawn_random(OrangeBlock, 20, edges=False)
         self.spawn_random(GreenBlock, 20, edges=False)
 
-class Block(subjunctive.Entity):
-    image = pyglet.resource.image('images/defaultblock.png')
+class Block(subjunctive.entity.Entity):
+    image = subjunctive.resource.image('images/defaultblock.png')
     pushable = True
     antiblock = None
 
-    def respond_to_push(self, direction, pusher, world):
+    def push(self, direction, pusher=None):
         if pusher.__class__.__name__ == self.antiblock:
-            return "mad"
+            self.world.remove(pusher)
+            self.world.remove(self)
         if isinstance(pusher, Cursor) or pusher.__class__ == self.__class__:
-            return "move"
-        return "stay"
+            self.move(direction)
 
 class BlueBlock(Block):
-    image = pyglet.resource.image('images/blueblock.png')
+    image = subjunctive.resource.image('images/blueblock.png')
     antiblock = "OrangeBlock"
 
-class Cursor(subjunctive.Entity):
-    directional = True
-    image = pyglet.resource.image('images/cursor.png')
-    pushable = True
+class Cursor(subjunctive.entity.Entity):
+    orientable = True
+    image = subjunctive.resource.image('images/cursor.png')
 
 class GreenBlock(Block):
-    image = pyglet.resource.image('images/greenblock.png')
+    image = subjunctive.resource.image('images/greenblock.png')
     antiblock = "RedBlock"
 
 class OrangeBlock(Block):
-    image = pyglet.resource.image('images/orangeblock.png')
+    image = subjunctive.resource.image('images/orangeblock.png')
     antiblock = "BlueBlock"
 
 class RedBlock(Block):
-    image = pyglet.resource.image('images/redblock.png')
+    image = subjunctive.resource.image('images/redblock.png')
     antiblock = "GreenBlock"
 
 if __name__ == '__main__':
@@ -57,9 +61,7 @@ if __name__ == '__main__':
     cursor = Cursor(world)
     world.setup(cursor)
 
-    @world.event
-    def on_text_motion(motion):
-        direction = subjunctive.KEYBOARD_DIRECTIONS.get(motion, False)
-        if direction:
-            world.push(cursor, direction)
-    pyglet.app.run()
+    def move_cursor(direction):
+        cursor.move(direction, orient=True)
+
+    subjunctive.run(world, on_direction=move_cursor)
