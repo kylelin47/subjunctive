@@ -65,7 +65,7 @@ For example,
 
 Add your game's script to the `scripts` list in `setup.py`. Then, re-run
 
-    $ .env/Scripts/python.exe setup.py install
+    $ .env/Scripts/pip.exe install --allow-unverified pysdl2 -e .
 
 ## Goals / design principles
 
