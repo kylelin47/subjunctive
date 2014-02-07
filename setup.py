@@ -10,5 +10,6 @@ setup(
     scripts=[
         'games/think-green/think-green.py',
         'games/floorpaint/floorpaint.py',
+        'games/think-better/think-better.py',
     ],
 )
