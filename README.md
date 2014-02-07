@@ -47,26 +47,25 @@ and install dependencies:
 
     $ git clone https://github.com/ufgmg/subjunctive
     $ cd subjunctive
-    $ virtualenv myVE
-    $ myVE/Scripts/python.exe setup.py install
-    $ curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python
+    $ virtualenv.py .env
+    $ .env/Scripts/python.exe setup.py install
 
 ### Running the games
 
 After installing as described in the previous section, you can run the
 games like so:
 
-    $ python myVE/Scripts/<game>.py
+    $ .env/Scripts/python.exe .env/Scripts/<game>.py
 
 For example,
 
-    $ python myVE/Scripts/think-green.py
+    $ .env/Scripts/python.exe .env/Scripts/think-green.py
 
 ### Adding a new game
 
 Add your game's script to the `scripts` list in `setup.py`. Then, re-run
 
-    $ myVE/Scripts/python.exe setup.py install
+    $ .env/Scripts/python.exe setup.py install
 
 ## Goals / design principles
 
