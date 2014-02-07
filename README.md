@@ -1,13 +1,71 @@
 **Subjunctive** – a *tile-based puzzle game* engine for Python 3
 
-Note: Subjunctive's API is **not stable**. We are still in the early
-development stages and things are likely to change a lot!
+Note: Subjunctive's API is **not at all stable**. We are still in the
+early development stages and things are likely to change a lot!
 
 * * *
 
-## Using it
+## Status of the games
 
-Don't use it. The time has not yet arrived.
+### Think Green
+
+**Think Green** is complete except for the following things, which are
+totally missing:
+
+*   title screen / death screen
+*   score display
+*   music
+
+### Floorpaint
+
+**Floorpaint** has partially complete level-file-loading, but that's
+about it. It is missing:
+
+*   core game mechanics (currently you can cross over your path)
+*   level generation
+*   graphics
+*   title screen / instructions
+*   music
+
+## Set-up
+
+### Dependencies
+
+**Subjunctive** requires:
+
+*   [Git]
+*   [Python 3.3+] and (optional, but recommended) [virtualenv]
+*   [sdl2], [sdl2_image], [sdl2_mixer]
+
+> **Hint:** If you're not already using Linux, now would be a good time
+> to consider doing so. Installing all this stuff would be as simple as
+>
+>     $ pacman -S git python3 python3-virtualenv sdl2 sdl2_gfx sdl2_image sdl2_mixer
+
+To get all everything set up, clone our repository, create a virtualenv,
+and install dependencies:
+
+    $ git clone https://github.com/ufgmg/subjunctive
+    $ cd subjunctive
+    $ virtualenv .env
+    $ .env/bin/pip install -e .
+
+### Running the games
+
+After installing as described in the previous section, you can run the
+games like so:
+
+    $ .env/bin/<game>.py
+
+For example,
+
+    $ .env/bin/think-green.py
+
+### Adding a new game
+
+Add your game's script to the `scripts` list in `setup.py`. Then, re-run
+
+    $ .env/bin/pip install -e .
 
 ## Goals / design principles
 
@@ -56,14 +114,14 @@ And, as usual, [the Zen of Python] provides excellent guidance.
 
 Refer to [A Note About Git Commit Messages].
 
-### Set-up
+### Set-up for contributing
 
 So, you want to help out? It's pretty easy, but there are a few things
 you need to set up first.
 
 1.  **Python**
 
-    You need Python 3.2 or newer. You should be able to open a terminal
+    You need Python 3.3 or newer. You should be able to open a terminal
     and run the Python interpreter by typing `python` or `python3`.
 
     If you already know some programming, the official [Python Tutorial]
@@ -185,6 +243,12 @@ you need to set up first.
 
 11. Send a **pull request**.
 
+[Git]: http://git-scm.com/
+[Python 3.3+]: http://www.python.org/download/
+[virtualenv]: http://www.virtualenv.org/en/latest/index.html
+[sdl2]: http://www.libsdl.org/download-2.0.php
+[sdl2_image]: http://www.libsdl.org/projects/SDL_image/
+[sdl2_mixer]: http://www.libsdl.org/projects/SDL_mixer/
 [the Zen of Python]: http://www.python.org/dev/peps/pep-0020/
 [PEP 8]: http://www.python.org/dev/peps/pep-0008/
 [A Note About Git Commit Messages]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
