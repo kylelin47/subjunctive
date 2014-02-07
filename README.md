@@ -48,7 +48,7 @@ and install dependencies:
     $ git clone https://github.com/ufgmg/subjunctive
     $ cd subjunctive
     $ virtualenv.py .env
-    $ .env/Scripts/python.exe setup.py install
+    $ .env/Scripts/pip.exe install --allow-unverified pysdl2 -e .
 
 ### Running the games
 
