@@ -45,6 +45,8 @@ about it. It is missing:
 To get all everything set up, clone our repository, create a virtualenv,
 and install dependencies:
 
+Set the path to your virtualenv in environment variables
+
     $ git clone https://github.com/ufgmg/subjunctive
     $ cd subjunctive
     $ virtualenv.py .env
