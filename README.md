@@ -45,27 +45,29 @@ about it. It is missing:
 To get all everything set up, clone our repository, create a virtualenv,
 and install dependencies:
 
+Set the path to your virtualenv in environment variables
+
     $ git clone https://github.com/ufgmg/subjunctive
     $ cd subjunctive
-    $ virtualenv .env
-    $ .env/bin/pip install -e .
+    $ virtualenv.py .env
+    $ .env/Scripts/pip.exe install --allow-unverified pysdl2 -e .
 
 ### Running the games
 
 After installing as described in the previous section, you can run the
 games like so:
 
-    $ .env/bin/<game>.py
+    $ .env/Scripts/python.exe .env/Scripts/<game>.py
 
 For example,
 
-    $ .env/bin/think-green.py
+    $ .env/Scripts/python.exe .env/Scripts/think-green.py
 
 ### Adding a new game
 
 Add your game's script to the `scripts` list in `setup.py`. Then, re-run
 
-    $ .env/bin/pip install -e .
+    $ .env/Scripts/pip.exe install --allow-unverified pysdl2 -e .
 
 ## Goals / design principles
 
