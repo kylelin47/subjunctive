@@ -2,6 +2,7 @@ import os.path
 
 import sdl2
 import sdl2.ext
+import sdl2.sdlmixer
 
 import subjunctive
 
@@ -118,7 +119,21 @@ class Recycle(subjunctive.entity.Entity):
     image = subjunctive.resource.image('images/recycle.png')
     pushable = True
 
+def play_music(music_id):
+    if music_id == 1:
+        music = subjunctive.resource.music('music/tiny_world.ogg')
+    if music_id == 2:
+        music = subjunctive.resource.music('music/recycling_is_fun.ogg')
+    if music_id == 3:
+        music = subjunctive.resource.music('music/death_error.ogg')
+    sdl2.sdlmixer.Mix_PlayMusic(music, -1) 
+
 if __name__ == '__main__':
+    sdl2.SDL_Init(sdl2.SDL_INIT_AUDIO)
+    sdl2.sdlmixer.Mix_Init(sdl2.sdlmixer.MIX_INIT_OGG)
+    sdl2.sdlmixer.Mix_OpenAudio(44100, sdl2.sdlmixer.MIX_DEFAULT_FORMAT, 
+                                2, 1024)
+    play_music(1)
     ts = TitleScreen()
     subjunctive.scheduler.call(ts.show_continue, after='3s')
     subjunctive.run(ts, on_select=subjunctive.exit)
@@ -136,7 +151,12 @@ if __name__ == '__main__':
                 world.combo = 1
 
         try:
+            play_music(2)
             subjunctive.run(world, on_direction=move_cursor)
         except DeathError:
             world.die()
+            play_music(3)
             subjunctive.run(world, on_select=subjunctive.exit)
+
+    sdl2.sdlmixer.Mix_CloseAudio()
+    sdl2.SDL_Quit(sdl2.SDL_INIT_AUDIO)

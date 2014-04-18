@@ -2,6 +2,9 @@ import logging
 import os.path
 
 import sdl2.ext
+import sdl2.sdlmixer
+
+from sdl2.ext.compat import byteify
 
 _paths = [os.path.dirname(__file__)]
 default_image = sdl2.ext.load_image(os.path.join(_paths[0],
@@ -30,6 +33,17 @@ def image(name):
             return surface
     logging.warning("image %r could not be found; using default" % name)
     return default_image
+
+def music(name):
+    for path in _paths:
+        music = sdl2.sdlmixer.Mix_LoadMUS(byteify(os.path.join(path, name), 
+                                          "utf-8"))
+        try:
+            music.contents
+        except ValueError:
+            pass
+        else:
+            return music
 
 def file(name):
     for path in _paths:
